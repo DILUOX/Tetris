@@ -19,6 +19,9 @@ public:
     {
         return y;
     }
+    void set_y(int y_){
+        y=y_;
+    }
 
 private:
     int x;

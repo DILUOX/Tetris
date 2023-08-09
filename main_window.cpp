@@ -2,16 +2,34 @@
 
 using namespace genv;
 
-int MainWindow::Window_loop(){
-    while(gin >> ev) {
-        refresh_frame();
-        screen_id=ui.operate(ev);
+int MainWindow::Window_loop()
+{
+    ui.operate(ev);
+    while(true)
+    {
 
-        if(screen_id==2){
+        gin >> ev;
+        refresh_frame();
+
+
+        screen_id=ui.operate(ev);
+        if(screen_id==1)
+        {
+            tetris.set_events(ev);
+            tetris.operate();
+
+        }
+        else if(screen_id==2)
+        {
             break;
         }
+        if(ev.type!=ev_timer){
+            gout<<refresh;
+        }
 
-        gout<<refresh;
+
+
+
     }
     return 0;
 }

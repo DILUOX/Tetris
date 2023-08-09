@@ -2,6 +2,19 @@
 #define WINDOW_HPP
 #include "graphics.hpp"
 
+
+struct Color{
+    Color(int r, int g, int b);
+    void setcolor(){
+        genv::gout<<genv::color(r,g,b);
+    }
+    int r,g,b;
+};
+
+
+
+
+
 class ParentWindow{
 public:
     ParentWindow(const int width, const int height): width(width), height(height){
