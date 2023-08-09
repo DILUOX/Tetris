@@ -1,0 +1,41 @@
+# depslib dependency file v1.0
+1612697619 source:c:\users\flugi\cb\grafkit64\main.cpp
+	"graphics.hpp"
+
+1612611542 c:\users\flugi\cb\grafkit64\include\graphics.hpp
+	<string>
+
+1612698440 source:c:\users\flugi\cb\graphicskit64\main.cpp
+	"graphics.hpp"
+
+1612611542 c:\users\flugi\cb\graphicskit64\include\graphics.hpp
+	<string>
+
+1691602145 source:e:\egyetem\own_project\tetris\main.cpp
+	"main_window.hpp"
+
+1646059652 e:\egyetem\own_project\tetris\include\graphics.hpp
+	<string>
+
+1691602438 e:\egyetem\own_project\tetris\main_window.hpp
+	"window.hpp"
+	"ui.hpp"
+
+1691589936 e:\egyetem\own_project\tetris\main_window.cpp
+
+1691601999 source:e:\egyetem\own_project\tetris\main_window.cpp
+	"main_window.hpp"
+
+1691600982 e:\egyetem\own_project\tetris\ui.hpp
+	"graphics.hpp"
+	<vector>
+
+1691601636 source:e:\egyetem\own_project\tetris\ui.cpp
+	"ui.hpp"
+
+1691601391 e:\egyetem\own_project\tetris\game_window.hpp
+	"main_window.hpp"
+
+1691602453 e:\egyetem\own_project\tetris\window.hpp
+	"graphics.hpp"
+
