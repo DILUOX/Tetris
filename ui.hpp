@@ -5,6 +5,11 @@
 
 
 
+template <typename T> T opp(T x)
+{
+    return x;
+}
+
 
 struct coordinate
 {
@@ -19,7 +24,12 @@ public:
     {
         return y;
     }
-    void set_y(int y_){
+    void set_x(int x_)
+    {
+        x=x_;
+    }
+    void set_y(int y_)
+    {
         y=y_;
     }
 
@@ -30,16 +40,17 @@ private:
 
 
 
-
 class Object
 {
 
 public:
-    Object(int id,int x, int y):id(id), position(x,y) {
+    Object(int id,int x, int y):id(id), position(x,y)
+    {
         state = 0;
     }
 
-    const int get_id(){
+    const int get_id()
+    {
         return id;
     }
 
@@ -69,7 +80,7 @@ public:
     const bool is_clicked(genv::event e)
     {
         return position.get_x()<e.pos_x && e.pos_x<position.get_x()+buttonlength_x
-        && position.get_y()<e.pos_y && e.pos_y<position.get_y()+buttonlength_y;
+               && position.get_y()<e.pos_y && e.pos_y<position.get_y()+buttonlength_y;
     }
 
 protected:
@@ -84,9 +95,9 @@ protected:
     int state;
 };
 
+
 class Button : public Object
 {
-
 public:
     Button(int id, int x, int y, std::string label) : Object(id,x,y), label(label)
     {
@@ -97,6 +108,8 @@ public:
     virtual void draw();
 
     virtual void set_input(genv::event e);
+
+
 
 private:
     std::string label;
@@ -114,7 +127,8 @@ public:
 
         screen_state = 0;
     }
-    ~Interface(){
+    ~Interface()
+    {
         ui_elements.erase(ui_elements.begin(),ui_elements.end());
     }
 

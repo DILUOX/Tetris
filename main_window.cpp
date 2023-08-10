@@ -1,5 +1,5 @@
 #include "main_window.hpp"
-
+//#include <iostream>
 using namespace genv;
 
 int MainWindow::Window_loop()
@@ -9,9 +9,9 @@ int MainWindow::Window_loop()
     {
 
         gin >> ev;
+        //std::cout<<ev.keycode<<", left: "<< key_left<< ", right: "<<key_right<<std::endl;
+
         refresh_frame();
-
-
         screen_id=ui.operate(ev);
         if(screen_id==1)
         {
@@ -26,8 +26,6 @@ int MainWindow::Window_loop()
         if(ev.type!=ev_timer){
             gout<<refresh;
         }
-
-
 
 
     }

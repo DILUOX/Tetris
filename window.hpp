@@ -24,7 +24,7 @@ public:
     int Window_loop(){return 0;}
 
     void refresh_frame(){
-        genv::gout<<genv::move_to(0,0)<<genv::color(0,0,0)<<genv::box(width,height);
+        genv::gout<<genv::move_to(200,0)<<genv::color(0,0,0)<<genv::box(width-400,height);
     }
 protected:
     const unsigned int width;
