@@ -36,8 +36,10 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-pedantic" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add option="-Werror" />
 			<Add directory="include" />
 		</Compiler>
 		<Linker>
@@ -51,7 +53,16 @@
 			<Add library="dxguid" />
 			<Add directory="lib" />
 		</Linker>
+		<Unit filename="exceptions.hpp" />
+		<Unit filename="game_window.cpp" />
+		<Unit filename="game_window.hpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="main_window.cpp" />
+		<Unit filename="main_window.hpp" />
+		<Unit filename="pic.h" />
+		<Unit filename="ui.cpp" />
+		<Unit filename="ui.hpp" />
+		<Unit filename="window.hpp" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

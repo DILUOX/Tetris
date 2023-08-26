@@ -1,11 +1,10 @@
 #include "game_window.hpp"
+#include "exceptions.hpp"
+
 
 using namespace genv;
 
-const int LEFT_SIDE = 200;
-const int RIGHT_SIDE = 600;
-const int BOTTOM = 800;
-const int BLOCK_SIZE = 50;
+
 
 void tetris_block::drawIt()
 {
@@ -43,7 +42,7 @@ int tetris_block::get_left_position()
     return minpos;
 }
 
-int tetris_block::get_right_position()
+int tetris_block::get_right_position()      //returns coords of the most right block
 {
     int maxpos = LEFT_SIDE;
     for(coordinate * c : blocks)
@@ -113,7 +112,8 @@ void Game_window::draw_screen()
 
 void Game_window::generate_block()
 {
-    stickies.push_back(new tetris_block(1,RIGHT_SIDE));
+    tetris_block * newblock = new tetris_block(1,RIGHT_SIDE);
+    stickies.push_back(newblock);
 }
 
 
@@ -133,13 +133,20 @@ void Game_window::fall()
 
 void Game_window::check_collosion(tetris_block * a, tetris_block * b)
 {
-    coordinate * a_block = a->return_positions();
-    coordinate * b_block = b->return_positions();
+    coordinate a_block[] = *a->return_positions();
+    coordinate  b_block[] = *b->return_positions();
+
+    if(a_block == nullptr || b_block ==nullptr){
+        throw Nullptr_din_array_err();
+    }
+
+
+
     for(int i = 0; i<3; i++)
     {
         for(int j = i; j<3; j++)
         {
-            if(a_block[i].get_x()==b_block->get_x() && a_block[i].get_y()==b_block[i].get_y()-BLOCK_SIZE)
+            if( (a_block[i]get_x()==b_block->get_x()) && a_block[i].get_y()==b_block[i].get_y()-BLOCK_SIZE)
             {
                 a->stop();
                 break;
@@ -159,15 +166,26 @@ void Game_window::control()
     {
         last_brick->move_right();
     }
+    if(e.keyname=="Down" && e.keycode > 0 && last_brick->get_bottom() < BOTTOM)
+    {
+        for(std::size_t i = 0; i < stickies.size()-1;i++){
+            stickies[i]->falldown();
+        }
+
+    }
+
 }
 
 void Game_window::operate()
 {
     draw_screen();
     control();
-    for(std::size_t i = 0; i<stickies.size()-1; i++){           //stickies vector contains the tetris blocks
-        for(std::size_t j = i; j<stickies.size()-1; j++){
-           // check_collosion(stickies[i],stickies[j]);
+    std::size_t max_vecsize = stickies.size()-1;
+    for(std::size_t i = 0; i<max_vecsize; i++)            //stickies vector contains the tetris blocks
+    {
+        for(std::size_t j = i; j<max_vecsize; j++)
+        {
+             check_collosion(stickies[i],stickies[j]);
         }
 
     }

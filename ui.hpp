@@ -1,7 +1,26 @@
 #ifndef UI_HPP
 #define UI_HPP
-#include "graphics.hpp"
+
+
+#include <iostream>
 #include <vector>
+#include <string>
+#include <sstream>
+
+
+#include "graphics.hpp"
+#include "exceptions.hpp"
+
+
+const int HEIGHT = 800;
+const int WIDTH = 800;
+
+const int TOP = 0;
+const int BOTTOM = 800;
+const int LEFT_SIDE = 200;
+const int RIGHT_SIDE = 600;
+
+const int BLOCK_SIZE = 50;
 
 
 
@@ -15,28 +34,88 @@ struct coordinate
 {
 public:
 
-    coordinate(int x, int y):x(x),y(y) {}
+
+    coordinate() : x(0), y(0) {}
+
+    coordinate(int _x, int _y):x(_x),y(_y) {}
+
+
+
+
+
+
     int get_x()
     {
         return x;
     }
+
+
     int get_y()
     {
         return y;
     }
+
+
     void set_x(int x_)
     {
+        if(x_< LEFT_SIDE || x_ > RIGHT_SIDE)
+        {
+            throw Nullptr_stat_int_err();
+        }
+        print();
         x=x_;
     }
+
+
     void set_y(int y_)
     {
         y=y_;
+    }
+    void print()
+    {
+
+        std::stringstream message;
+        message<< "X: " + std::to_string(get_x()) + "Y: " + std::to_string(get_y()) + ';';
+        std::string formatted_msg = "";
+        std::getline(message,formatted_msg, ';');
+        std::cout<<formatted_msg<<std::endl;
     }
 
 private:
     int x;
     int y;
 };
+
+
+
+struct coord_arr
+{
+    coord_vec(int arr_size)
+    {
+        coordinate * arr = new coordinate();
+    }
+
+    coordinate * arr;
+
+    coordinate inline operator [](int k)
+    {
+        return arr[k];
+    }
+
+    coord_arr coordinate(int arr_size)
+    {
+        coord_arr * cord_arr(arr_size);
+
+        for(int i = 0 ; i < s; i++)
+        {
+            cord_arr[i] = coordinate();
+        }
+        return *coordvec;
+    }
+};
+
+
+
 
 
 

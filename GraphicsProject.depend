@@ -39,3 +39,49 @@
 1691602453 e:\egyetem\own_project\tetris\window.hpp
 	"graphics.hpp"
 
+1692999149 source:c:\shared\own_project\tetris\main.cpp
+	"main_window.hpp"
+
+1693008619 c:\shared\own_project\tetris\main_window.hpp
+	"window.hpp"
+	"game_window.hpp"
+	"pic.h"
+	"ui.hpp"
+
+1693012208 c:\shared\own_project\tetris\window.hpp
+	"graphics.hpp"
+	"ui.hpp"
+
+1691853550 c:\shared\own_project\tetris\include\graphics.hpp
+	<string>
+
+1693013499 c:\shared\own_project\tetris\game_window.hpp
+	"window.hpp"
+	<cstdlib>
+	<time.h>
+
+1693014002 c:\shared\own_project\tetris\ui.hpp
+	<iostream>
+	<vector>
+	<string>
+	<sstream>
+	"graphics.hpp"
+	"exceptions.hpp"
+
+1691853550 source:c:\shared\own_project\tetris\main_window.cpp
+	"main_window.hpp"
+
+1691853550 source:c:\shared\own_project\tetris\ui.cpp
+	"ui.hpp"
+
+1693011975 source:c:\shared\own_project\tetris\game_window.cpp
+	"game_window.hpp"
+	"exceptions.hpp"
+
+1693008705 c:\shared\own_project\tetris\pic.h
+	"graphics.hpp"
+	<fstream>
+
+1693010514 c:\shared\own_project\tetris\exceptions.hpp
+	<exception>
+
