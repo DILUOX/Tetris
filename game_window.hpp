@@ -58,32 +58,32 @@ public:
     }
 
     void drawIt();
-    bool falldown();
 
-    int get_left_position();
-    int get_right_position();
-    int get_bottom();
+
+    coordinate get_left_position();
+    coordinate get_right_position();
+    coordinate get_bottom();
+    coordinate get_top();
+
+    bool return_state(){
+        return fallen;
+    }
 
     void move_left();
     void move_right();
+    void move_down(int downcount, int rem_distance);
     void stop()
     {
         fallen=true;
     }
-    coordinate return_positions()
+    std::vector<coordinate*> return_positions()
     {
-        int vec_size = 4;
-        coordinate emptc = coordinate()[4];
-        int tmp=0;
-        for(int i = 0; i < vec_size; i++)
-        {
-            coordinate * tmp = blocks[i];
 
-            emptc[tmp].set_x(tmp->get_x());
-            emptc[tmp].set_y(tmp->get_y());
-            tmp++;
-        }
-        return *emptc;
+        /*for(int i = 0; i<4 ;i++){
+            std::cout<<"Block no.: "<<id<<std::endl;
+            std::cout<<"Returning x: "<<blocks[i]->get_x()<<", y: "<<blocks[i]->get_y()<<std::endl;
+        }*/
+        return blocks;
     }
 
 private:
@@ -101,8 +101,9 @@ class Game_window : public ParentWindow
 public:
     Game_window(const int width,const int height):ParentWindow(width, height)
     {
-        screen_id=0;
+        screen_id = 0;
         std::vector<tetris_block*> stickies = std::vector<tetris_block*>();
+        liftdown_speed = 2;
         generate_block();
 
     }
@@ -117,20 +118,30 @@ public:
     }
 
 
-    void operate();
+    int operate();
+
     void draw_screen();
+
     void generate_block();
 
     void fall();
 
     void control();
 
-    void check_collosion(tetris_block * a, tetris_block * b);
+    bool compare_block_pos(tetris_block &a, tetris_block &b);
 
+    bool check_collosion(tetris_block * a, tetris_block * b);
 
+    bool check_gameover();
+
+    bool falldown();
 private:
     genv::event e;
     std::vector<tetris_block*> stickies;
+    int liftdown_speed;
+
+    int remaining_distance(tetris_block * brick_under_me);
+
 };
 
 

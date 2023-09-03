@@ -19,6 +19,7 @@ class ParentWindow{
 public:
     ParentWindow(const int width, const int height): width(width), height(height){
         screen_id=0;
+        app_state=1;
     }
 
     int Window_loop(){return 0;}
@@ -34,6 +35,7 @@ protected:
     const unsigned int width;
     const unsigned int height;
     int screen_id;
+    int app_state;
 };
 
 

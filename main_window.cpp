@@ -16,7 +16,7 @@ int MainWindow::Window_loop()
         if(screen_id==1)
         {
             tetris.set_events(ev);
-            tetris.operate();
+            app_state=tetris.operate();
 
         }
         else if(screen_id==2)
@@ -25,6 +25,9 @@ int MainWindow::Window_loop()
         }
         if(ev.type!=ev_timer){
             gout<<refresh;
+        }
+        if(app_state==-1){
+            break;
         }
 
 

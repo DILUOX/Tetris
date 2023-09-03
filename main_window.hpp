@@ -11,7 +11,7 @@ class MainWindow : public ParentWindow{
 public:
     MainWindow(const unsigned int width, const unsigned int height, bool fullscreen_): ParentWindow(width,height), tetris(Game_window(width,height)){
         genv::gout.open(width,height,fullscreen_);
-        genv::gin.timer(400);
+        genv::gin.timer(700);
         ui = Interface();
         screen_id = 0;
         char filename[] = {'b','r','i','c','k','.','k','e','p'};
@@ -29,6 +29,7 @@ public:
     int Window_loop();
 
 private:
+
     genv::event ev;
     Interface ui;
     Game_window tetris;

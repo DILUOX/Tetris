@@ -39,11 +39,6 @@ public:
 
     coordinate(int _x, int _y):x(_x),y(_y) {}
 
-
-
-
-
-
     int get_x()
     {
         return x;
@@ -62,7 +57,7 @@ public:
         {
             throw Nullptr_stat_int_err();
         }
-        print();
+        //print();
         x=x_;
     }
 
@@ -87,31 +82,41 @@ private:
 };
 
 
-
-struct coord_arr
+class coord_arr
 {
-    coord_vec(int arr_size)
-    {
-        coordinate * arr = new coordinate();
+
+private:
+    std::vector<coordinate> arr;
+
+
+public:
+    coordinate operator [](std::size_t i){
+        coordinate * a = &arr[i];
+        return *a;
     }
 
-    coordinate * arr;
-
-    coordinate inline operator [](int k)
-    {
-        return arr[k];
-    }
-
-    coord_arr coordinate(int arr_size)
-    {
-        coord_arr * cord_arr(arr_size);
-
-        for(int i = 0 ; i < s; i++)
-        {
-            cord_arr[i] = coordinate();
+    void operator = (coord_arr k){
+        for(std::size_t i = 0; i <arr.size()-1;i++){
+            arr[i] = k[i];
         }
-        return *coordvec;
     }
+
+    coord_arr(){
+        for(std::size_t i = 0; i < 4; i++){
+            arr.push_back(coordinate());
+        }
+    }
+
+    /*coord_arr<T> coord_vec()
+    {
+        return this->arr;
+    }*/
+
+    /*T& operator [](std::size_t k)
+    {
+        return this->*arr[k];
+    }*/
+
 };
 
 
@@ -217,7 +222,7 @@ private:
     int screen_state;
 };
 
-
+//template class coord_arr<coordinate>;
 
 
 #endif // UI_HPP
