@@ -9,31 +9,32 @@
 
 class MainWindow : public ParentWindow{
 public:
-    MainWindow(const unsigned int width, const unsigned int height, bool fullscreen_): ParentWindow(width,height), tetris(Game_window(width,height)){
+    MainWindow(const unsigned int width, const unsigned int height, bool fullscreen_): ParentWindow(width,height), tetris(Game_window(width,height))
+    {
         genv::gout.open(width,height,fullscreen_);
-        genv::gin.timer(700);
+        genv::gin.timer(300);
         ui = Interface();
         screen_id = 0;
-        char filename[] = {'b','r','i','c','k','.','k','e','p'};
-        texture sidewalls(filename);
-        for(unsigned int i = 0; i<2;i++){
-            for(unsigned int j = 0; j <height/200; j++){
-                sidewalls.draw(i*600,j*200);
-            }
-        }
 
-        genv::gout<<genv::refresh;
+        std::string background_path("brick.kep");
+        std::string gameover_path("gameover.kep");
+
+        background = new texture(background_path);
+        gameover = new texture(gameover_path);
+        draw_background();
 
     }
-
     int Window_loop();
 
 private:
-
     genv::event ev;
     Interface ui;
     Game_window tetris;
-    //texture sidewalls;
+    texture * background;
+    texture * gameover;
+
+    void draw_background();
+
 };
 
 

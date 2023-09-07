@@ -12,9 +12,9 @@ struct texture
     pixel * pic;
     int width, height;
 
-    texture(char filename[])
+    texture(std::string filename)
     {
-        std::ifstream file_("brick.kep");
+        std::ifstream file_(filename);
         file_>>width>>height;
         pic = new pixel[width*height];
         int tail = 0;

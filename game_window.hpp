@@ -4,6 +4,8 @@
 #include <cstdlib>
 #include <time.h>
 
+
+
 class tetris_block
 {
 public:
@@ -53,10 +55,12 @@ public:
             k = nullptr;
 
         }
+        this->validate_geometry();
+
         fallen = false;
         colorid = rand() % 14 + 1;
     }
-
+    void validate_geometry();
     void drawIt();
 
 
@@ -65,13 +69,15 @@ public:
     coordinate get_bottom();
     coordinate get_top();
 
+
+
     bool return_state(){
         return fallen;
     }
 
     void move_left();
     void move_right();
-    void move_down(int downcount, int rem_distance);
+    void move_down(int move_px_down, int rem_distance);
     void stop()
     {
         fallen=true;
@@ -96,6 +102,32 @@ private:
 
 
 
+class tetris_logic{
+public:
+    tetris_logic()
+    {
+        floor = std::vector<coordinate*>();
+    }
+    ~tetris_logic(){
+        floor.erase(floor.begin(),floor.end());
+    }
+    void add_to_floor(tetris_block *t)
+    {
+        for(coordinate * c : t->return_positions()){
+            floor.push_back(c);
+        }
+
+    }
+
+private:
+    std::vector<coordinate*> floor;
+
+};
+
+
+
+
+
 class Game_window : public ParentWindow
 {
 public:
@@ -103,7 +135,7 @@ public:
     {
         screen_id = 0;
         std::vector<tetris_block*> stickies = std::vector<tetris_block*>();
-        liftdown_speed = 2;
+        liftdown_speed = 50;
         generate_block();
 
     }
@@ -117,30 +149,35 @@ public:
         return screen_id;
     }
 
-
     int operate();
 
     void draw_screen();
 
     void generate_block();
 
+    bool check_gameover();
+
+    bool falldown();
+
     void fall();
 
     void control();
+
+
 
     bool compare_block_pos(tetris_block &a, tetris_block &b);
 
     bool check_collosion(tetris_block * a, tetris_block * b);
 
-    bool check_gameover();
+    coordinate* tallest_under_me(tetris_block * me);
 
-    bool falldown();
+
+
 private:
     genv::event e;
     std::vector<tetris_block*> stickies;
     int liftdown_speed;
 
-    int remaining_distance(tetris_block * brick_under_me);
 
 };
 
