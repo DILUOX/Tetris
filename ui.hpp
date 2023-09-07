@@ -82,43 +82,6 @@ private:
 };
 
 
-class coord_arr
-{
-
-private:
-    std::vector<coordinate> arr;
-
-
-public:
-    coordinate operator [](std::size_t i){
-        coordinate * a = &arr[i];
-        return *a;
-    }
-
-    void operator = (coord_arr k){
-        for(std::size_t i = 0; i <arr.size()-1;i++){
-            arr[i] = k[i];
-        }
-    }
-
-    coord_arr(){
-        for(std::size_t i = 0; i < 4; i++){
-            arr.push_back(coordinate());
-        }
-    }
-
-    /*coord_arr<T> coord_vec()
-    {
-        return this->arr;
-    }*/
-
-    /*T& operator [](std::size_t k)
-    {
-        return this->*arr[k];
-    }*/
-
-};
-
 
 
 
