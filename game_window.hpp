@@ -55,7 +55,7 @@ public:
             k = nullptr;
 
         }
-        this->validate_geometry();
+        validate_geometry();
 
         fallen = false;
         colorid = rand() % 14 + 1;

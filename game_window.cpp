@@ -7,13 +7,13 @@ using namespace genv;
 
 void tetris_block::validate_geometry()
 {
-    for(std::size_t i = 1; i < 4 ; i++){
+    for(std::size_t i = 1; i < 4; i++){
         coordinate * c1 = blocks[i];
         coordinate * c2 = blocks[i-1];
         if(c1->get_x()==c2->get_x() && c1->get_y() == c2->get_y()){
-            int dir = rand()% 2 - 1;
-            c2->set_x(c2->get_x() + dir*50);
-            c2->set_y(c2->get_y() + dir*50);
+            int dir = 1;
+            c2->set_x(c2->get_x() + dir*100);
+            c2->set_y(c2->get_y() + dir*100);
         }
     }
 
@@ -32,46 +32,11 @@ void tetris_block::drawIt()
     }
 }
 
-coordinate tetris_block::get_bottom()
-{
-    coordinate lowest_pos = coordinate();
-    for(coordinate * coord: blocks)
-    {
-        if(coord->get_y()>lowest_pos.get_y())
-        {
-            lowest_pos = *coord;
-        }
-    }
-    return lowest_pos;
-}
 
-coordinate tetris_block::get_left_position()
-{
-    coordinate minpos = coordinate(RIGHT_SIDE - BLOCK_SIZE,0);
-    for(coordinate * coord : blocks)
-    {
-        if(minpos.get_x() > coord->get_x())
-        {
-            minpos=*coord;
-        }
-    }
-    return minpos;
-}
+/***** Tetris block position getters *****/
 
-coordinate tetris_block::get_right_position()      //returns coords of the most right block
-{
-    coordinate maxpos = coordinate(LEFT_SIDE,0);
-    for(coordinate * coord : blocks)
-    {
-        if(maxpos.get_x()<coord->get_x())
-        {
-            maxpos=*coord;
-        }
-    }
-    return maxpos;
-}
 
-coordinate tetris_block::get_top()
+coordinate tetris_block::get_top()              //returns coord of the highest block
 {
     coordinate minpos = coordinate(0,BOTTOM);
 
@@ -84,6 +49,50 @@ coordinate tetris_block::get_top()
     }
     return minpos;
 }
+
+
+coordinate tetris_block::get_bottom()           //returns coord of the lowest block
+{
+    coordinate lowest_pos = coordinate();
+    for(coordinate * coord: blocks)
+    {
+        if(coord->get_y()>lowest_pos.get_y())
+        {
+            lowest_pos = *coord;
+        }
+    }
+    return lowest_pos;
+}
+
+coordinate tetris_block::get_left_position()    //returns coord of the most left block
+{
+    coordinate minpos = coordinate(RIGHT_SIDE - BLOCK_SIZE,0);
+    for(coordinate * coord : blocks)
+    {
+        if(minpos.get_x() > coord->get_x())
+        {
+            minpos=*coord;
+        }
+    }
+    return minpos;
+}
+
+coordinate tetris_block::get_right_position()      //returns coord of the most right block
+{
+    coordinate maxpos = coordinate(LEFT_SIDE,0);
+    for(coordinate * coord : blocks)
+    {
+        if(maxpos.get_x()<coord->get_x())
+        {
+            maxpos=*coord;
+        }
+    }
+    return maxpos;
+}
+
+
+/***** Tetris block position setters *****/
+
 
 void tetris_block::move_left()
 {
@@ -137,6 +146,7 @@ void tetris_block::move_down(int move_px_down,int rem_distance)
 }
 
 
+/*******  Tetris game logic & drawing implementation  *******/
 
 void Game_window::draw_screen()
 {
@@ -210,7 +220,7 @@ std::vector<coordinate*> is_parallel(std::vector<coordinate*> a, std::vector<coo
 
 
 coordinate* Game_window::tallest_under_me(tetris_block * me)          //returns the coordinates of the highest block under the given block
-{
+{                                                                     //returns nullptr if doesn't find anything
     if(stickies.size()<2){
         return nullptr;
     }
@@ -230,8 +240,6 @@ coordinate* Game_window::tallest_under_me(tetris_block * me)          //returns 
             }
         }
 
-
-
     }
 
     int highest_y = 8001;
@@ -246,7 +254,6 @@ coordinate* Game_window::tallest_under_me(tetris_block * me)          //returns 
     }
     if(highest_y == 8001)
     {
-
         return nullptr;
     }
 
@@ -255,7 +262,7 @@ coordinate* Game_window::tallest_under_me(tetris_block * me)          //returns 
 }
 
 
-
+/********** CONTROLS  **********/
 
 void Game_window::control()
 {
@@ -278,19 +285,19 @@ void Game_window::control()
     }
 
 
-    if(e.keyname=="Down" && e.keycode > 0 )                  //checks if current position is in the air
+    if(e.keyname=="Down" && e.keycode > 0 )
     {
-        coordinate * rem_y = tallest_under_me(last_brick);
+        coordinate * rem_y = tallest_under_me(last_brick);                  //checking remaining distance till the floor
         int remaining_distance = 0;
 
         if(rem_y != nullptr){
             remaining_distance = rem_y->get_y() - (last_brick->get_bottom().get_y() + BLOCK_SIZE);
-            last_brick->move_down(remaining_distance,remaining_distance);   //moving to the brick under
+            last_brick->move_down(remaining_distance,remaining_distance);   //moving to the brick under current figure
         }
 
         else{
             remaining_distance = BOTTOM - (last_brick->get_bottom().get_y()+ BLOCK_SIZE);
-            last_brick->move_down(remaining_distance, remaining_distance);    //moving to the floor
+            last_brick->move_down(remaining_distance, remaining_distance);    //moving to the bottom of the screen
         }
     }
 
@@ -308,17 +315,9 @@ void Game_window::control()
 
 
 
-//checking two tetris figures if they are next to each other
-//tetris_block * a, tetris_block * b is compared
-//Use to detect if a tetris object has fallen on another
-
-
-bool Game_window::compare_block_pos(tetris_block &a, tetris_block &b)
-{
-
-    return false;
-}
-
+/** checking two tetris figures if they are next to each other vertically;
+    tetris_block a and tetris_block b is compared
+    Use to detect if a tetris object has fallen on another**/
 
 
 bool Game_window::check_collosion(tetris_block * a, tetris_block * b)
@@ -359,10 +358,10 @@ bool Game_window::check_gameover()
 {
     if(stickies.size()>1)
     {
+        std::cout<<"Checking gameover.."<<std::endl;
         tetris_block * tmp = stickies[stickies.size()-1];
-        if(tmp->return_state()==true && tmp->get_top().get_y()==TOP)
+        if(tmp->return_state() && (tmp->get_top().get_y()==TOP || tmp->get_top().get_y() == TOP + BLOCK_SIZE))
         {
-            screen_id = -1;
             return true;
         }
     }
@@ -370,27 +369,33 @@ bool Game_window::check_gameover()
     return false;
 }
 
+/***** MAIN GAME LOGIC WRAP FUNCTION *****/
+
 int Game_window::operate()
 {
+    std::size_t max_vecsize = stickies.size();
+
     draw_screen();
     control();
-    std::size_t max_vecsize = stickies.size();
     if(check_gameover()==true)
     {
         app_state = -1;
         return app_state;
     }
+
     for(std::size_t i = 0; i<max_vecsize; i++)            //stickies vector contains the tetris blocks
     {
         for(std::size_t j = i+1; j<max_vecsize; j++)
         {
-            check_collosion(stickies[i], stickies[j]);
+            check_collosion(stickies[i], stickies[j]);    //validating moving tetris block with fallen ones
         }
 
     }
+
     if(app_state!=3){
         fall();
     }
+
 
     return app_state;
 
