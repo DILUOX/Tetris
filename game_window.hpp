@@ -84,11 +84,6 @@ public:
     }
     std::vector<coordinate*> return_positions()
     {
-
-        /*for(int i = 0; i<4 ;i++){
-            std::cout<<"Block no.: "<<id<<std::endl;
-            std::cout<<"Returning x: "<<blocks[i]->get_x()<<", y: "<<blocks[i]->get_y()<<std::endl;
-        }*/
         return blocks;
     }
 
@@ -102,42 +97,16 @@ private:
 
 
 
-class tetris_logic{
-public:
-    tetris_logic()
-    {
-        floor = std::vector<coordinate*>();
-    }
-    ~tetris_logic(){
-        floor.erase(floor.begin(),floor.end());
-    }
-    void add_to_floor(tetris_block *t)
-    {
-        for(coordinate * c : t->return_positions()){
-            floor.push_back(c);
-        }
-
-    }
-
-private:
-    std::vector<coordinate*> floor;
-
-};
-
-
-
-
-
 class Game_window : public ParentWindow
 {
 public:
     Game_window(const int width,const int height):ParentWindow(width, height)
     {
-        screen_id = 0;
+        highest_pos = BOTTOM;
         std::vector<tetris_block*> stickies = std::vector<tetris_block*>();
         liftdown_speed = 50;
         generate_block();
-
+        app_state = 1;
     }
     void set_events(genv::event e_)
     {
@@ -163,7 +132,7 @@ public:
 
     void control();
 
-
+    void reset();
 
     bool compare_block_pos(tetris_block &a, tetris_block &b);
 
@@ -171,12 +140,15 @@ public:
 
     coordinate* tallest_under_me(tetris_block * me);
 
+    void check_fullrow();
+
 
 
 private:
     genv::event e;
     std::vector<tetris_block*> stickies;
     int liftdown_speed;
+    int highest_pos;
 
 
 };

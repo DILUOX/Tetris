@@ -7,13 +7,18 @@ using namespace genv;
 
 void tetris_block::validate_geometry()
 {
-    for(std::size_t i = 1; i < 4; i++){
-        coordinate * c1 = blocks[i];
-        coordinate * c2 = blocks[i-1];
-        if(c1->get_x()==c2->get_x() && c1->get_y() == c2->get_y()){
-            int dir = 1;
-            c2->set_x(c2->get_x() + dir*100);
-            c2->set_y(c2->get_y() + dir*100);
+    for(std::size_t i = 0; i < 4; i++){
+        for(std::size_t j = i+1; j < 4; j++)
+        {
+            if(blocks[i]->get_x() == blocks[j]->get_x() && blocks[i]->get_y() == blocks[j]->get_y()){
+                int dir = rand() % 2 -1;
+                if(dir>0){
+                    blocks[j]->set_x(blocks[j]->get_x() + 50);
+                }
+                else{
+                    blocks[j]->set_y(blocks[j]->get_y() + 50);
+                }
+            }
         }
     }
 
@@ -134,8 +139,7 @@ void tetris_block::move_down(int move_px_down,int rem_distance)
             for(coordinate * c : blocks)
             {
                 c->set_y(
-                    c->get_y() +( move_px_down)
-                );
+                    c->get_y() + rem_distance);
             }
             //stop();
         }
@@ -182,6 +186,7 @@ bool Game_window::falldown()
     else
     {
         last->stop();
+        highest_pos = last->get_top().get_y();
     }
     return last->return_state();
 
@@ -356,14 +361,8 @@ bool Game_window::check_collosion(tetris_block * a, tetris_block * b)
 
 bool Game_window::check_gameover()
 {
-    if(stickies.size()>1)
-    {
-        std::cout<<"Checking gameover.."<<std::endl;
-        tetris_block * tmp = stickies[stickies.size()-1];
-        if(tmp->return_state() && (tmp->get_top().get_y()==TOP || tmp->get_top().get_y() == TOP + BLOCK_SIZE))
-        {
-            return true;
-        }
+    if(highest_pos == TOP){
+        return true;
     }
 
     return false;
@@ -401,10 +400,17 @@ int Game_window::operate()
 
 }
 
+void Game_window::reset(){
+    stickies.erase(stickies.begin(), stickies.end());
+    highest_pos = BOTTOM;
+    app_state = 1;
+    generate_block();
+}
 
 
+void Game_window::check_fullrow(){
 
-
+}
 
 
 

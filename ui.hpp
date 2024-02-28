@@ -23,14 +23,7 @@ const int RIGHT_SIDE = 600;
 const int BLOCK_SIZE = 50;
 
 
-
-template <typename T> T opp(T x)
-{
-    return x;
-}
-
-
-struct coordinate
+class coordinate
 {
 public:
 
