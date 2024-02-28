@@ -12,15 +12,17 @@
 #include "exceptions.hpp"
 
 
-const int HEIGHT = 800;
-const int WIDTH = 800;
+static const int HEIGHT = 800;
+static const int WIDTH = 800;
 
-const int TOP = 0;
-const int BOTTOM = 800;
-const int LEFT_SIDE = 200;
-const int RIGHT_SIDE = 600;
+static const int BLOCK_SIZE = 50;
+static const int TOP = 0;
+static const int BOTTOM = 800;
+static const int LEFT_SIDE = 200;
+static const int RIGHT_SIDE = 600;
 
-const int BLOCK_SIZE = 50;
+static const int MIDDLE = ((RIGHT_SIDE - LEFT_SIDE) % BLOCK_SIZE) * BLOCK_SIZE + LEFT_SIDE;
+
 
 
 class coordinate
@@ -32,13 +34,13 @@ public:
 
     coordinate(int _x, int _y):x(_x),y(_y) {}
 
-    int get_x()
+    int get_x()const
     {
         return x;
     }
 
 
-    int get_y()
+    int get_y()const
     {
         return y;
     }
