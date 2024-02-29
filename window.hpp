@@ -1,19 +1,8 @@
 #ifndef WINDOW_HPP
 #define WINDOW_HPP
-#include "graphics.hpp"
 #include "ui.hpp"
 
-struct Color{
-    Color(int r, int g, int b);
-    void setcolor(){
-        genv::gout<<genv::color(r,g,b);
-    }
-    int r,g,b;
-};
-
-
-
-
+static const RGB backgroundColor = {70, 119, 212};  //St. Marie like blue
 
 class ParentWindow{
 public:
@@ -25,7 +14,7 @@ public:
     int Window_loop(){return 0;}
 
     void refresh_frame(){
-        genv::gout<<genv::move_to(200,0)<<genv::color(0,0,0)<<genv::box(width-400,height);
+        genv::gout<<genv::move_to(200,0)<<genv::color(backgroundColor.r,backgroundColor.g,backgroundColor.b)<<genv::box(width-400,height);
     }
 
     void log(std::string * msg){

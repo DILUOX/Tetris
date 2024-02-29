@@ -12,17 +12,29 @@
 #include "exceptions.hpp"
 
 
-static const int HEIGHT = 800;
-static const int WIDTH = 800;
+//Global game variables containing info about ui formatting
 
+static const int HEIGHT = 800;
+static const int WIDTH = 1000;
+
+
+static const int borderSizePx = 1;
 static const int BLOCK_SIZE = 50;
 static const int TOP = 0;
-static const int BOTTOM = 800;
+static const int BOTTOM = HEIGHT;
 static const int LEFT_SIDE = 200;
-static const int RIGHT_SIDE = 600;
+static const int RIGHT_SIDE = WIDTH-LEFT_SIDE;
 
-static const int MIDDLE = ((RIGHT_SIDE - LEFT_SIDE) % BLOCK_SIZE) * BLOCK_SIZE + LEFT_SIDE;
+static const int MIDDLE = (RIGHT_SIDE-LEFT_SIDE) / 2 + LEFT_SIDE  - BLOCK_SIZE ;
 
+
+//UI Sturcture and class definition
+
+struct RGB {
+    unsigned char r, g, b;
+};
+
+RGB getRandomRGBColor() ;
 
 
 class coordinate
@@ -165,7 +177,7 @@ class Interface
 public:
     Interface()
     {
-        ui_elements = {new Button(1,350,200,"Play"), new Button(2,350,270,"Exit")};
+        ui_elements = {new Button(1,MIDDLE,200,"Play"), new Button(2,MIDDLE,270,"Exit")};
 
         screen_state = 0;
     }

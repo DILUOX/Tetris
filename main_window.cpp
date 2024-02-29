@@ -9,7 +9,7 @@ void MainWindow::draw_background()
     {
         for(unsigned int j = 0; j <height/200; j++)
         {
-            background->draw(i*600,j*200);
+            background->draw(i*RIGHT_SIDE,j*200);
         }
     }
     genv::gout<<genv::refresh;
@@ -18,6 +18,7 @@ void MainWindow::draw_background()
 
 
 
+//Main loop
 
 int MainWindow::Window_loop()
 {

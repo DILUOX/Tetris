@@ -9,11 +9,11 @@
 class tetris_block
 {
 public:
-    tetris_block(short id, int x, int y);
+    tetris_block(short id, int x, int y, RGB color);
     void drawIt()const;
     coordinate get_vertex()const;
+    void set_vertex(int x, int y);
     bool return_state()const{ return fallen; }
-
     void move_left();
     void move_right();
     void move_down(int move_px_down, int rem_distance);
@@ -23,12 +23,12 @@ private:
     short id;       // make it greater to unlock limit
     bool fallen;
     coordinate vertex;
-    char colorid;
+    RGB colorid;
 
 };
 
 
-const int BLOCK_COUNT = 4;
+const unsigned int BLOCK_COUNT = 4;
 
 
 class Game_window : public ParentWindow
@@ -48,30 +48,27 @@ public:
 
     int operate();
 
-    void draw_screen();
+    void draw_screen()const;
 
     void generate_block();
 
-    bool check_gameover();
-
-    bool falldown();
-
     void fall();
 
-    void control();
+    bool check_collision();
+
+    void control();//TODO
+
+    void check_fullrow(); //TODO
+
+    bool check_gameover(); //TODO
 
     void reset();
-
-    bool is_Colliding();
-
-    void check_fullrow();
-
 
 
 
 private:
     genv::event e;
-    std::vector<tetris_block*> stickies;
+    std::vector<tetris_block*> bricks;
     int liftdown_speed;
     int highest_pos;
     int numof_blocks;

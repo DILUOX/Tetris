@@ -2,6 +2,20 @@
 
 using namespace genv;
 
+
+
+RGB getRandomRGBColor() {
+    RGB color;
+    color.r = rand()%175 + 80;
+    color.g = rand()%225 + 30;
+    color.b = rand()%135 + 120;
+    return color;
+}
+
+
+
+
+
 const int Button::return_value()
 {
     return state;
