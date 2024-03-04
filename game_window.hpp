@@ -1,7 +1,6 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 #include "window.hpp"
-#include <cstdlib>
 #include <time.h>
 
 
@@ -29,6 +28,8 @@ private:
 
 
 const unsigned int BLOCK_COUNT = 4;
+enum collide_status{COLLIDING_LEFT, COLLIDING_RIGHT, COLLIDING_BLOCK, COLLIDING_NONE, STOPPING};
+
 
 
 class Game_window : public ParentWindow
@@ -54,11 +55,15 @@ public:
 
     void fall();
 
-    bool check_collision();
+    collide_status check_collision();
 
-    void control();//TODO
+    void control(); //TODO fast drop
 
-    void check_fullrow(); //TODO
+    int check_fullrow();
+
+    void delete_row(int row_positon);
+
+    void fall_after_delete(int row_position);
 
     bool check_gameover(); //TODO
 
@@ -72,7 +77,6 @@ private:
     int liftdown_speed;
     int highest_pos;
     int numof_blocks;
-
 
 };
 

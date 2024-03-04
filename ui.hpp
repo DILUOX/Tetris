@@ -17,15 +17,16 @@
 static const int HEIGHT = 800;
 static const int WIDTH = 1000;
 
-
+static const float PI=3.14159265;
 static const int borderSizePx = 1;
 static const int BLOCK_SIZE = 50;
 static const int TOP = 0;
 static const int BOTTOM = HEIGHT;
 static const int LEFT_SIDE = 200;
 static const int RIGHT_SIDE = WIDTH-LEFT_SIDE;
-
 static const int MIDDLE = (RIGHT_SIDE-LEFT_SIDE) / 2 + LEFT_SIDE  - BLOCK_SIZE ;
+
+static const int ROW_LENGTH = (RIGHT_SIDE-LEFT_SIDE)/BLOCK_SIZE;
 
 
 //UI Sturcture and class definition

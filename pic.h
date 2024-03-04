@@ -28,6 +28,8 @@ struct texture
             }
         }
     }
+
+
     void draw(int x_, int y_)
     {
         int tail=0;

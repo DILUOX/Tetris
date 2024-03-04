@@ -47,13 +47,13 @@ int MainWindow::Window_loop()
         }
         screen_id=ui.operate(ev);
 
-        if(screen_id==1)
+        if(screen_id==1)        //game is running
         {
             tetris.set_events(ev);
             app_state=tetris.operate();
 
         }
-        else if(screen_id==2)
+        else if(screen_id==2)       //exit state
         {
             break;
         }
